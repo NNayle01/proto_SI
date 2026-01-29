@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Gestion des Stocks - Le Verger du Coin{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Gestion des Stocks</h2>
+        <p class="text-muted">Gestion des stocks de produits en temps réel</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Stocks des Produits</h5>
+                <div>
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary me-2">Retour au tableau de bord</a>
+                    <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#importModal">
+                        <i class="bi bi-upload"></i> Importer
+                    </button>
+                    <a href="{{ url_for('export_stock') }}" class="btn btn-primary">
+                        <i class="bi bi-download"></i> Exporter
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Prix</th>
+                                <th>Stock Actuel</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if products %}
+                            {% for product in products %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.price }} €</td>
+                                <td>{{ product.stock }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning edit-stock-btn" 
+                                            data-product-id="{{ product.id }}" 
+                                            data-current-stock="{{ product.stock }}">
+                                        Modifier
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">Aucun produit trouvé</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour l'import -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Importer les stocks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{{ url_for('import_stock') }}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Sélectionnez un fichier CSV</label>
+                        <input class="form-control" type="file" id="file" name="file" accept=".csv" required>
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Format attendu :</strong> ID, Nom, Prix, Stock<br>
+                        <small>Exemple : 1, Pommes, 2.50, 100</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Importer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour la modification de stock -->
+<div class="modal fade" id="editStockModal" tabindex="-1" aria-labelledby="editStockModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editStockModalLabel">Modifier le stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editStockForm">
+                    <input type="hidden" id="editProductId" name="product_id">
+                    <div class="mb-3">
+                        <label for="editStockQuantity" class="form-label">Nouvelle quantité en stock</label>
+                        <input type="number" class="form-control" id="editStockQuantity" name="stock" min="0" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="saveStockBtn">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Script pour gérer la modification de stock
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion du clic sur les boutons "Modifier"
+    document.querySelectorAll('.edit-stock-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            const currentStock = this.getAttribute('data-current-stock');
+            
+            // Remplir le modal
+            document.getElementById('editProductId').value = productId;
+            document.getElementById('editStockQuantity').value = currentStock;
+            
+            // Afficher le modal
+            const modal = new bootstrap.Modal(document.getElementById('editStockModal'));
+            modal.show();
+        });
+    });
+    
+    // Gestion de l'enregistrement
+    document.getElementById('saveStockBtn').addEventListener('click', function() {
+        const productId = document.getElementById('editProductId').value;
+        const newStock = document.getElementById('editStockQuantity').value;
+        
+        // Envoyer la requête à l'API
+        fetch(`{{ url_for('admin_stock') }}/update/${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({stock: newStock})
+        })
+        .then(response => {
+            if (response.ok) {
+                // Recharger la page pour voir les changements
+                window.location.reload();
+            } else {
+                alert('Erreur lors de la mise à jour du stock');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de la mise à jour du stock');
+        });
+    });
+});
+</script>
+{% endblock %}

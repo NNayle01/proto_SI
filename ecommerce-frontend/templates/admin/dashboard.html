@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord Admin - Le Verger du Coin{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Tableau de bord Administrateur</h2>
+        <p class="text-muted">Gestion de l'exploitation agricole</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Produits</h5>
+                <a href="{{ url_for('admin_products') }}" class="btn btn-primary">Gérer les produits</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Stocks</h5>
+                <a href="{{ url_for('admin_stock') }}" class="btn btn-primary">Gérer les stocks</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Commandes</h5>
+                <a href="{{ url_for('admin_orders') }}" class="btn btn-primary">Gérer les commandes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Actions rapides</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('home') }}" class="btn btn-outline-secondary me-2">Retour au site</a>
+                <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-danger">Déconnexion</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

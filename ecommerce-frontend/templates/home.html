@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Mon Site E-commerce{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-5">
+        <h1 class="display-5 mb-3">Nos Fruits de Saison</h1>
+        <p class="lead">
+            Découvrez nos fruits cultivés avec soin, récoltés à maturité et disponibles selon les saisons.
+        </p>
+        <div class="alert alert-info mb-4">
+            <i class="bi bi-info-circle me-2"></i>
+            <strong>En ce moment :</strong> C'est la saison des pommes, poires et raisins !
+        </div>
+    </div>
+    
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    <!-- Filtres et recherche -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="bi bi-funnel me-2"></i> Filtrer les produits</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" action="{{ url_for('home') }}" class="row g-3">
+                <div class="col-md-4">
+                    <label for="search" class="form-label"><i class="bi bi-search me-2"></i> Rechercher</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="search" 
+                           name="search" 
+                           placeholder="Rechercher un produit..." 
+                           value="{{ request.args.get('search', '') }}">
+                </div>
+                
+                <div class="col-md-3">
+                    <label for="season" class="form-label"><i class="bi bi-calendar-season me-2"></i> Saison</label>
+                    <select class="form-select" id="season" name="season">
+                        <option value="">Toutes les saisons</option>
+                        <option value="Hiver" {% if request.args.get('season') == 'Hiver' %}selected{% endif %}>Hiver</option>
+                        <option value="Printemps" {% if request.args.get('season') == 'Printemps' %}selected{% endif %}>Printemps</option>
+                        <option value="Été" {% if request.args.get('season') == 'Été' %}selected{% endif %}>Été</option>
+                        <option value="Automne" {% if request.args.get('season') == 'Automne' %}selected{% endif %}>Automne</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-3">
+                    <label for="category" class="form-label"><i class="bi bi-tag me-2"></i> Catégorie</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="">Toutes les catégories</option>
+                        <option value="Fruits" {% if request.args.get('category') == 'Fruits' %}selected{% endif %}>Fruits</option>
+                        <option value="Légumes" {% if request.args.get('category') == 'Légumes' %}selected{% endif %}>Légumes</option>
+                        <option value="Produits Transformés" {% if request.args.get('category') == 'Produits Transformés' %}selected{% endif %}>Produits Transformés</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-funnel-fill me-2"></i> Filtrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% if products %}
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card product-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.label }}</h5>
+                            <p class="card-text text-muted">{{ product.ref }}</p>
+                            <p class="card-text">{{ product.description|truncate(100) if product.description else 'Aucune description' }}</p>
+                            <p class="card-text font-weight-bold">{{ product.price|default(0)|float }} €</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Détails
+                                </a>
+                                <form action="{{ url_for('add_to_cart') }}" method="post" class="d-inline">
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="bi bi-cart-plus"></i> Ajouter
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Aucun produit disponible pour le moment.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

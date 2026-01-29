@@ -1,0 +1,41 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Produits - Admin{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Liste des produits</h2>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary mb-3">Retour</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Référence</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.rowid }}</td>
+                        <td>{{ product.ref }}</td>
+                        <td>{{ product.label }}</td>
+                        <td>{{ product.price }} €</td>
+                        <td>{{ product.stock }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

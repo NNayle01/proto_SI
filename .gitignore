@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+*.env
+!.env.example
+
+# Docker
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+data/
+backup/
+cookies.txt
+wget-log
+*_credentials.txt
+
+# Database exports (keep only init file)
+database/*.sql
+!database/init-dolibarr.sql

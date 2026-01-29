@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Le Verger du Coin{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Le Verger du Coin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">Notre Histoire</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/markets">Nos Marchés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/seasonal">Saison</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">
+                            Panier
+                            {% if 'cart' in session and session['cart'] %}
+                            <span class="cart-count">{{ session['cart']|length }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer mt-5 py-4">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-white">Le Verger du Coin</h5>
+                    <p class="mb-0">Agriculture raisonnée depuis 1985</p>
+                    <p class="mb-0">Auvergne-Rhône-Alpes</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-white">Nos engagements</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-leaf text-success me-2"></i> Produits locaux et de saison</li>
+                        <li><i class="bi bi-heart text-danger me-2"></i> Agriculture respectueuse</li>
+                        <li><i class="bi bi-people text-primary me-2"></i> Relation de proximité</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-white">Contact</h5>
+                    <p class="mb-0"><i class="bi bi-telephone me-2"></i> 04 78 12 34 56</p>
+                    <p class="mb-0"><i class="bi bi-envelope me-2"></i> contact@vergerducoin.fr</p>
+                    <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> 123 Rue des Vergers, 69000 Lyon</p>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <p class="mb-0">&copy; 2023 Le Verger du Coin. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

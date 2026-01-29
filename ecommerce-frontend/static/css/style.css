@@ -1,0 +1,446 @@
+/* Style personnalisé pour Le Verger du Coin - Mix Terroir & Épuré */
+
+:root {
+    --primary-color: #2e8b57; /* Vert nature profond */
+    --secondary-color: #f8f8f8; /* Blanc cassé très clair */
+    --accent-color: #e8a87c; /* Terre cuite douce */
+    --dark-color: #1a3e2f; /* Vert foncé organique */
+    --light-color: #ffffff; /* Blanc pur */
+    --terracotta: #c48f65; /* Terre cuite */
+    --sage-green: #8a9a5b; /* Vert sauge */
+    --cream: #f5f3f0; /* Crème */
+}
+
+/* Police mixant modernité et authenticité */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap');
+
+body {
+    background-color: var(--secondary-color);
+    font-family: 'Inter', sans-serif;
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+/* En-tête épuré avec touche terroir */
+.navbar {
+    background-color: var(--light-color) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--primary-color) !important;
+    position: relative;
+}
+
+.navbar-brand::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--dark-color) !important;
+    margin: 0 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Cart count avec style terroir */
+.cart-count {
+    background-color: var(--terracotta);
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    top: -5px;
+}
+
+/* Cards avec mélange des styles */
+.card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    background-color: var(--light-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+}
+
+.product-card {
+    border-left: 3px solid var(--accent-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10,50 Q50,10 90,50 Q50,90 10,50' fill='none' stroke='%23e8a87c' stroke-width='1' opacity='0.1'/%3E%3C/svg%3E") no-repeat;
+    opacity: 0.3;
+}
+
+/* Boutons avec style mix */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
+}
+
+.btn-outline-secondary {
+    border-color: var(--sage-green);
+    color: var(--sage-green);
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border-width: 2px;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--sage-green);
+    color: white;
+    border-color: var(--sage-green);
+}
+
+/* Prix avec style terroir */
+.price {
+    color: var(--terracotta);
+    font-weight: 600;
+    font-size: 1.3rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.price::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--accent-color);
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Badges de stock */
+.stock-badge {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+}
+
+.badge-bg-success {
+    background-color: rgba(46, 139, 87, 0.15);
+    color: var(--primary-color);
+}
+
+.badge-bg-danger {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+}
+
+/* Footer avec style terroir moderne */
+.footer {
+    background: linear-gradient(135deg, var(--dark-color) 0%, #2a5c44 100%);
+    color: var(--cream);
+    padding: 3rem 0 1.5rem;
+}
+
+.footer h5 {
+    color: var(--cream);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.footer h5::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+.footer a {
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.footer ul li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer ul li i {
+    margin-right: 10px;
+    color: var(--accent-color);
+}
+
+/* Typographie mix */
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: var(--dark-color);
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+.display-5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    color: var(--dark-color);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.display-5::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+}
+
+.lead {
+    font-family: 'Inter', sans-serif;
+    color: #5a5a5a;
+    font-weight: 400;
+}
+
+/* Animations subtiles */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Éléments terroir */
+.terroir-element {
+    background-color: var(--terracotta);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+    margin: 0.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.terroir-element::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    to {
+        left: 150%;
+    }
+}
+
+/* Tableau épuré */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    padding: 1rem;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(46, 139, 87, 0.05);
+}
+
+/* Formulaires épurés */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.25);
+    outline: none;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
+}
+
+/* Alertes stylisées */
+.alert {
+    border-radius: 8px;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+}
+
+.alert-info {
+    background-color: rgba(23, 162, 184, 0.1);
+    border-left: 4px solid #17a2b8;
+    color: #17a2b8;
+}
+
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-left: 4px solid #28a745;
+    color: #28a745;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-left: 4px solid #dc3545;
+    color: #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+    
+    .nav-link {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .display-5 {
+        font-size: 2rem;
+    }
+}
+
+/* Effets de survol terroir */
+.hover-terroir:hover {
+    position: relative;
+    z-index: 1;
+}
+
+.hover-terroir:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10,10 L90,10 L90,90 L10,90 Z' fill='none' stroke='%23e8a87c' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E") repeat;
+    opacity: 0.3;
+    z-index: -1;
+    border-radius: 8px;
+}
+
+/* Arrière-plans texturés */
+.textured-bg {
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Ombre douce pour profondeur */
+.shadow-soft {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Transition douce */
+.transition-smooth {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}

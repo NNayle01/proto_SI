@@ -1,0 +1,86 @@
+services:
+  dolibarr:
+    image: dolibarr/dolibarr:latest
+    container_name: dolibarr_app
+    ports:
+      - "8080:80"
+    environment:
+      - DOLI_DB_HOST=db
+      - DOLI_DB_USER=dolibarr
+      - DOLI_DB_PASSWORD=dolibarrpass
+      - DOLI_DB_NAME=dolibarr
+      - DOLIBARR_API_ENABLED=1
+      - DOLIBARR_MAIN_FEATURES_LEVEL=2
+      - DOLIBARR_MAIN_MODULE_API=1
+      - DOLIBARR_MAIN_MODULE_API_PRODUCTION=1
+      - DOLIBARR_MAIN_MODULE_API_EXPLORER=1
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - dolibarr_network
+
+  db:
+    image: mariadb:10.11
+    container_name: dolibarr_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=dolibarr
+      - MYSQL_USER=dolibarr
+      - MYSQL_PASSWORD=dolibarrpass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/init-dolibarr.sql:/docker-entrypoint-initdb.d/init-dolibarr.sql:ro
+    restart: unless-stopped
+    networks:
+      - dolibarr_network
+
+  # Backend API pour le site e-commerce (Python/Flask)
+  ecommerce_api:
+    build:
+      context: ./ecommerce-api
+      dockerfile: Dockerfile
+    container_name: ecommerce_api
+    ports:
+      - "5000:5000"
+    environment:
+      - DOLIBARR_API_URL=http://dolibarr:80
+      - DOLIBARR_API_KEY=your_dolibarr_api_key
+      - DB_HOST=db
+      - DB_USER=dolibarr
+      - DB_PASSWORD=dolibarrpass
+      - DB_NAME=dolibarr
+    depends_on:
+      - dolibarr
+      - db
+    restart: unless-stopped
+    networks:
+      - dolibarr_network
+
+  # Frontend pour le site vitrine et panier (Python/Flask)
+  ecommerce_frontend:
+    build:
+      context: ./ecommerce-frontend
+      dockerfile: Dockerfile
+    container_name: ecommerce_frontend
+    ports:
+      - "5001:5001"
+    environment:
+      - API_URL=http://ecommerce_api:5000
+      - FLASK_ENV=development
+    volumes:
+      - ./ecommerce-frontend:/app
+    depends_on:
+      - ecommerce_api
+    restart: unless-stopped
+    networks:
+      - dolibarr_network
+
+
+
+volumes:
+  db_data:
+
+networks:
+  dolibarr_network:
+    driver: bridge

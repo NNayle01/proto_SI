@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Gestion des Commandes - Le Verger du Coin{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Gestion des Commandes</h2>
+        <p class="text-muted">Suivi et gestion des commandes clients</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Liste des Commandes</h5>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Retour au tableau de bord</a>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                                <th>Total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if orders %}
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.customer_name }}</td>
+                                <td>{{ order.date }}</td>
+                                <td>
+                                    <span class="badge bg-{% if order.status == 1 %}success{% else %}warning{% endif %}">
+                                        {% if order.status == 1 %}Validée{% else %}En attente{% endif %}
+                                    </span>
+                                </td>
+                                <td>{{ order.total }} €</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info order-details-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#orderDetailsModal"
+                                            data-order-id="{{ order.id }}">
+                                        Voir
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">Aucune commande trouvée</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour les détails des commandes -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Détails de la commande</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="orderDetailsContent">
+                    <!-- Le contenu sera chargé dynamiquement -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Script pour charger les détails des commandes
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion du clic sur les boutons "Voir"
+    document.querySelectorAll('.order-details-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = this.getAttribute('data-order-id');
+            
+            // Récupérer les détails de la commande depuis l'API
+            fetch(`/api/orders/${orderId}`)
+            .then(response => response.json())
+            .then(order => {
+                // Construire le contenu du modal
+                let content = `
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Référence:</strong> ${order.ref}<br>
+                            <strong>Client:</strong> ${order.customer_name}<br>
+                            <strong>Date:</strong> ${new Date(order.date).toLocaleDateString()}<br>
+                            <strong>Statut:</strong> ${order.status == 1 ? 'Validée' : 'En attente'}
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <h4>Total: ${order.total} €</h4>
+                        </div>
+                    </div>
+                    
+                    <h5>Articles commandés:</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                                <th>Prix unitaire</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                // Ajouter chaque article
+                order.items.forEach(item => {
+                    const unitPrice = (item.total / item.quantity).toFixed(2);
+                    content += `
+                            <tr>
+                                <td>${item.product_name}</td>
+                                <td>${item.quantity}</td>
+                                <td>${unitPrice} €</td>
+                                <td>${item.total.toFixed(2)} €</td>
+                            </tr>
+                    `;
+                });
+                
+                content += `
+                        </tbody>
+                    </table>
+                `;
+                
+                // Afficher le contenu dans le modal
+                document.getElementById('orderDetailsContent').innerHTML = content;
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById('orderDetailsContent').innerHTML = 
+                    '<div class="alert alert-danger">Erreur lors du chargement des détails de la commande</div>';
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

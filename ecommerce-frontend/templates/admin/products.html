@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Gestion des Produits - Le Verger du Coin{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Gestion des Produits</h2>
+        <p class="text-muted">Gestion des produits de l'exploitation agricole</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Liste des Produits</h5>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Retour au tableau de bord</a>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Prix</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if products %}
+                            {% for product in products %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.price }} €</td>
+                                <td>{{ product.description|truncate(50) }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-info">Voir</a>
+                                    <a href="#" class="btn btn-sm btn-warning">Modifier</a>
+                                    <a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">Aucun produit trouvé</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

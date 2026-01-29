@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}Produits de Saison - Le Verger du Coin{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-5 mb-3">Calendrier des Fruits de Saison</h1>
+            <p class="lead mb-4">
+                Découvrez quels fruits sont disponibles tout au long de l'année dans nos vergers.
+            </p>
+            <div class="alert alert-success">
+                <i class="bi bi-calendar-check me-2"></i>
+                <strong>En ce moment (Automne) :</strong> Pommes, Poires, Raisins, Noix, Figues
+            </div>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow text-center fade-in">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="bi bi-snow text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h3 class="card-title">Hiver</h3>
+                        <p class="card-text">Décembre - Février</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-1"><i class="bi bi-apple text-success me-2"></i> Pommes</li>
+                            <li class="mb-1"><i class="bi bi-apple text-success me-2"></i> Poires</li>
+                            <li class="mb-1"><i class="bi bi-nut text-success me-2"></i> Noix</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow text-center fade-in">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="bi bi-flower1 text-success" style="font-size: 3rem;"></i>
+                        </div>
+                        <h3 class="card-title">Printemps</h3>
+                        <p class="card-text">Mars - Mai</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-1"><i class="bi bi-strawberry text-danger me-2"></i> Fraises</li>
+                            <li class="mb-1"><i class="bi bi-strawberry text-danger me-2"></i> Cerises</li>
+                            <li class="mb-1"><i class="bi bi-strawberry text-danger me-2"></i> Rhubarbe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow text-center fade-in">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="bi bi-brightness-high text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <h3 class="card-title">Été</h3>
+                        <p class="card-text">Juin - Août</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-1"><i class="bi bi-strawberry text-danger me-2"></i> Abricots</li>
+                            <li class="mb-1"><i class="bi bi-strawberry text-danger me-2"></i> Pêches</li>
+                            <li class="mb-1"><i class="bi bi-strawberry text-danger me-2"></i> Prunes</li>
+                            <li class="mb-1"><i class="bi bi-strawberry text-danger me-2"></i> Framboises</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow text-center fade-in">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="bi bi-tree text-success" style="font-size: 3rem;"></i>
+                        </div>
+                        <h3 class="card-title">Automne</h3>
+                        <p class="card-text">Septembre - Novembre</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-1"><i class="bi bi-apple text-success me-2"></i> Pommes</li>
+                            <li class="mb-1"><i class="bi bi-apple text-success me-2"></i> Poires</li>
+                            <li class="mb-1"><i class="bi bi-grape text-success me-2"></i> Raisins</li>
+                            <li class="mb-1"><i class="bi bi-nut text-success me-2"></i> Noix</li>
+                            <li class="mb-1"><i class="bi bi-nut text-success me-2"></i> Figues</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow fade-in">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Pourquoi manger de saison ?</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="text-center">
+                                    <div class="mb-3">
+                                        <i class="bi bi-emoji-smile text-success" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h4>Meilleur goût</h4>
+                                    <p>
+                                        Les fruits de saison sont récoltés à maturité et 
+                                        n'ont pas besoin de longs transports.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-4">
+                                <div class="text-center">
+                                    <div class="mb-3">
+                                        <i class="bi bi-heart-pulse text-danger" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h4>Plus nutritifs</h4>
+                                    <p>
+                                        Les fruits de saison contiennent plus de vitamines 
+                                        et de minéraux essentiels.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-4">
+                                <div class="text-center">
+                                    <div class="mb-3">
+                                        <i class="bi bi-globe-americas text-primary" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h4>Écologique</h4>
+                                    <p>
+                                        Moins de transport et de conservation signifie 
+                                        moins d'impact sur l'environnement.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow fade-in">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Nos Conseils de Saison</h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-3">Conservation</h4>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><i class="bi bi-info-circle me-2"></i> Les pommes se conservent plusieurs semaines au frais</li>
+                                            <li class="mb-2"><i class="bi bi-info-circle me-2"></i> Les fruits à noyau (abricots, pêches) se conservent 2-3 jours</li>
+                                            <li class="mb-2"><i class="bi bi-info-circle me-2"></i> Les baies (framboises, fraises) se consomment rapidement</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-3">Idées Recettes</h4>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><i class="bi bi-star me-2"></i> Tarte aux pommes maison</li>
+                                            <li class="mb-2"><i class="bi bi-star me-2"></i> Confiture de fraises</li>
+                                            <li class="mb-2"><i class="bi bi-star me-2"></i> Salade de fruits d'été</li>
+                                            <li class="mb-2"><i class="bi bi-star me-2"></i> Compote de poires et cannelle</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

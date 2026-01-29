@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}Nos Marchés - Le Verger du Coin{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-5 mb-3">Où nous trouver ?</h1>
+            <p class="lead">
+                Retrouvez nos produits frais sur nos différents points de vente 
+                ou commandez en ligne pour une livraison locale.
+            </p>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 shadow fade-in">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="me-3">
+                                <i class="bi bi-shop text-primary" style="font-size: 2rem;"></i>
+                            </div>
+                            <div>
+                                <h3 class="card-title mb-2">À la Ferme</h3>
+                                <p class="card-text">
+                                    <strong>Adresse:</strong> 123 Rue des Vergers, 69000 Lyon<br>
+                                    <strong>Horaires:</strong> Mercredi - Samedi: 9h-12h / 14h-18h<br>
+                                    <strong>Téléphone:</strong> 04 78 12 34 56
+                                </p>
+                            </div>
+                        </div>
+                        <p class="card-text">
+                            Venez découvrir notre kiosque à la ferme où vous trouverez tous nos produits 
+                            frais de saison, ainsi que des conseils pour les cuisiner et les conserver.
+                        </p>
+                        <div class="mt-3">
+                            <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                                 alt="Kiosque à la ferme" 
+                                 class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 shadow fade-in">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="me-3">
+                                <i class="bi bi-calendar-event text-success" style="font-size: 2rem;"></i>
+                            </div>
+                            <div>
+                                <h3 class="card-title mb-2">Marchés Fermiers</h3>
+                                <p class="card-text">
+                                    Nous sommes présents sur plusieurs marchés de la région :
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion" id="marketsAccordion">
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#market1" aria-expanded="true" aria-controls="market1">
+                                        Marché de Villeurbanne
+                                    </button>
+                                </h2>
+                                <div id="market1" class="accordion-collapse collapse show" data-bs-parent="#marketsAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Lieu:</strong> Place du Marché, Villeurbanne</p>
+                                        <p><strong>Jour:</strong> Samedi matin</p>
+                                        <p><strong>Horaires:</strong> 8h - 13h</p>
+                                        <p><strong>Spécialités:</strong> Pommes, poires, confitures maison</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#market2" aria-expanded="false" aria-controls="market2">
+                                        Marché de Caluire
+                                    </button>
+                                </h2>
+                                <div id="market2" class="accordion-collapse collapse" data-bs-parent="#marketsAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Lieu:</strong> Place de l'Église, Caluire</p>
+                                        <p><strong>Jour:</strong> Mercredi matin</p>
+                                        <p><strong>Horaires:</strong> 8h - 12h30</p>
+                                        <p><strong>Spécialités:</strong> Fruits de saison, jus frais</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item mb-2">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#market3" aria-expanded="false" aria-controls="market3">
+                                        Marché Bio de Lyon 6
+                                    </button>
+                                </h2>
+                                <div id="market3" class="accordion-collapse collapse" data-bs-parent="#marketsAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Lieu:</strong> Boulevard des Belges, Lyon 6ème</p>
+                                        <p><strong>Jour:</strong> Dimanche matin</p>
+                                        <p><strong>Horaires:</strong> 9h - 13h30</p>
+                                        <p><strong>Spécialités:</strong> Gamme complète bio</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow fade-in">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="me-3">
+                                <i class="bi bi-truck text-warning" style="font-size: 2rem;"></i>
+                            </div>
+                            <div>
+                                <h3 class="card-title mb-2">Livraison à Domicile</h3>
+                                <p class="card-text">
+                                    Nous livrons dans un rayon de 20km autour de Lyon.<br>
+                                    Commandez avant 16h pour une livraison le lendemain.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Zones de Livraison</h5>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Lyon et banlieue proche</li>
+                                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Villeurbanne, Caluire, Bron</li>
+                                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Vaulx-en-Velin, Décines</li>
+                                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Tassin-la-Demi-Lune, Écully</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Frais de Livraison</h5>
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Commande < 30€</td>
+                                                    <td class="text-end">5,90€</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Commande 30€ - 50€</td>
+                                                    <td class="text-end">3,90€</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Commande > 50€</td>
+                                                    <td class="text-end">GRATUIT</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow fade-in">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Carte de Nos Points de Vente</h3>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10904.5!2d4.85!3d45.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDQ1JzAwLjAiTiA0wrA1MScwMC4wIkU!5e0!3m2!1sfr!2sfr!4v1234567890" 
+                                    width="600" 
+                                    height="450" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        <p class="text-center text-muted">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Cliquez sur les marqueurs pour voir les horaires et jours d'ouverture
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

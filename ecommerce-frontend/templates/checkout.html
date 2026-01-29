@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Paiement - Mon Site E-commerce{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Finaliser ma commande</h1>
+    
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Informations de livraison</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/checkout">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nom complet</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Adresse de livraison</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" required placeholder="Ex: 123 Rue des Vergers, 69000 Lyon"></textarea>
+                            <div class="form-text">
+                                Nous livrons dans un rayon de 20km autour de Lyon. 
+                                <a href="/markets" target="_blank">Voir nos zones de livraison</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Mode de livraison</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="delivery_method" id="deliveryHome" value="home" checked>
+                                <label class="form-check-label" for="deliveryHome">
+                                    Livraison à domicile (frais selon montant)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="delivery_method" id="deliveryMarket" value="market">
+                                <label class="form-check-label" for="deliveryMarket">
+                                    Retrait gratuit sur un de nos marchés
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="delivery_method" id="deliveryFarm" value="farm">
+                                <label class="form-check-label" for="deliveryFarm">
+                                    Retrait gratuit à la ferme
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes pour votre commande</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="2" placeholder="Ex: Je serai absent le matin, laissez le colis chez le voisin"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="bi bi-credit-card"></i> Passer la commande
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Récapitulatif de la commande</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush mb-3">
+                        {% for product_id, quantity in session['cart'].items() %}
+                            {% set product = None %}
+                            {% for item in cart_items if item.id == product_id %}
+                                {% set product = item %}
+                            {% endfor %}
+                            
+                            {% if product %}
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>{{ product.label }} × {{ quantity }}</span>
+                                    <span>{{ product.price|float * quantity }} €</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="d-flex justify-content-between font-weight-bold h5">
+                        <span>Total</span>
+                        <span>{{ total|float }} €</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Récupérer les détails des produits pour le récapitulatif
+    const cart = {{ session['cart']|tojson }};
+    let cartItems = [];
+    let total = 0;
+    
+    async function loadCartDetails() {
+        for (const [productId, quantity] of Object.entries(cart)) {
+            try {
+                const response = await fetch(`/api/products/${productId}`);
+                if (response.ok) {
+                    const product = await response.json();
+                    cartItems.push({
+                        id: productId,
+                        label: product.label,
+                        price: product.price,
+                        quantity: quantity
+                    });
+                    total += product.price * quantity;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement du produit:', error);
+            }
+        }
+    }
+    
+    loadCartDetails();
+</script>
+{% endblock %}
