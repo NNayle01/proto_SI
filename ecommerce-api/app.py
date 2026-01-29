@@ -186,20 +186,20 @@ def get_products():
                             params.extend([f'%{search_query}%', f'%{search_query}%', f'%{search_query}%'])
                         
                         if season:
-                            conditions.append("( 
+                            conditions.append("""( 
                                 label LIKE %s OR 
                                 label LIKE %s OR 
                                 label LIKE %s OR 
                                 label LIKE %s 
-                            )")
+                            )""")
                             params.extend([f'%Hiver%', f'%Printemps%', f'%Été%', f'%Automne%'])
                         
                         if category:
-                            conditions.append("( 
+                            conditions.append("""( 
                                 label LIKE %s OR 
                                 label LIKE %s OR 
                                 label LIKE %s 
-                            )")
+                            )""")
                             params.extend([f'%Fruits%', f'%Légumes%', f'%Produits Transformés%'])
                         
                         # Ajouter les conditions à la requête
